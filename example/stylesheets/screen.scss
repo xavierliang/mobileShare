@@ -45,9 +45,6 @@ $dark-gray: #444;
 
 @include breakpoint($landscape){
   @include type(10);
-  iframe {
-    display: none;
-  }
   span.scroll-indicator {
     font-size: 10px !important;
   }
@@ -71,16 +68,34 @@ main {
 }
 
 @include keyframes("pulse") {
-  0% { opacity: 1; }
-  50% { opacity: 0.25; }
-  100% { opacity: 1; }
+  0% { opacity: 0.25; padding-top: 10px; padding-bottom: 10px;}
+  50% { opacity: 1; padding-top: 0px; padding-bottom: 0px;}
+  100% { opacity: 0.25; padding-top: 10px; padding-bottom: 10px;}
+}
+
+$elements:10;
+@for $i from 1 to $elements{
+  section.scene:nth-child(#{$i}) {
+    background-image: url("../res/#{$i}.jpg");
+  }
 }
 
 section.scene {
   position: absolute;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
   width: 100%;
   height: 100%;
   padding: 0px 20px;
+  background-size: 100% 100%;
+  background-image: url("../res/1.jpg");
+  @include breakpoint($desktop) {
+      width: 63.54vh;
+  }
+  @include breakpoint($tablet) {
+      width: 63.54vh;
+  }
   @include prefixer(transition, all .35s ease-out);
   span.scroll-indicator {
     @include safe-rem(font-size, 15);
@@ -91,14 +106,14 @@ section.scene {
     }
     left: 50%;
     margin: auto;
-    color: white;
+    color: #bbb;
     display: inline-block;
     font-weight: normal;
-    @include prefixer(transform, scaleX(2.5) translate3d(-50%,0,0));
+    @include prefixer(transform, rotateZ(180deg) scaleX(2.5) translate3d(50%,0,0));
     font-family: Helvetica, Arial, san-serif;
-    @include prefixer(animation, pulse 1s infinite);
+    @include prefixer(animation, pulse 1.5s infinite);
     &.reverse {
-      @include prefixer(transform, rotateZ(180deg) scaleX(2.5) translate3d(50%,0,0));
+      @include prefixer(transform, scaleX(2.5) translate3d(-50%,0,0));
       top: 20px;
       @include breakpoint($landscape) {
         bottom: 5px;
@@ -107,21 +122,18 @@ section.scene {
     }
   }
   &.fix {
-    background: $teal;
     @include prefixer(transform, translate3d(0,0,0));
   }
   &.up_after.after {
       @include prefixer(transform, translate3d(0,-100%,0));
   }
   &.up {
-    background: $red;
     @include prefixer(transform, translate3d(0,100%,0));
   }
   &.left_after.after {
       @include prefixer(transform, translate3d(-100%,0,0));
   }
   &.left {
-    background: $blue;
     @include prefixer(transform, translate3d(100%,0,0));
   }
   &.shrink { 
