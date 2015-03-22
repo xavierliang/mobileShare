@@ -1,9 +1,11 @@
 var app = (function(app, $){
 
-  var currentScene = 0;
+  currentScene = 0;
+  currentSlide = 0;
 
   $cache = {
-    scenes: $('.scene')
+    scenes: $('.scene'),
+    slides: $('.scene').eq(0).find('.slide')
   }
 
   function _constructor(){
@@ -41,25 +43,48 @@ var app = (function(app, $){
   function slideHandle(direction) {
     switch(direction) {
       case 'up':
-        if(currentScene > 0) {
-          currentScene--;
+        if(currentSlide > 0) {
+          currentSlide--;
           sceneHandle();
+        } else {
+          if(currentScene > 0) {
+            currentScene--;
+            currentSlide = 0;
+            $cache.slides = $cache.scenes.eq(currentScene).find(".slide");
+            sceneHandle();
+          }
         }
       break;
       case 'down':
-        if(currentScene < ($cache.scenes.length - 1)) {
-          currentScene++;
+        if(currentSlide < ($cache.slides.length - 1)) {
+          currentSlide++;
           sceneHandle();
+        } else {
+          if(currentScene < ($cache.scenes.length - 1)) {
+            currentScene++;
+            currentSlide = 0;
+            $cache.slides = $cache.scenes.eq(currentScene).find(".slide");
+            sceneHandle();
+          }
         }
       break;
     }
   }
 
   function sceneHandle(){
-    $cache.scenes.each(function(){
+    $cache.scenes.each(function(i){
       if($(this).index() == currentScene) {
         $(this).addClass('active').removeClass('after');
       } else if($(this).index() < currentScene){
+        $(this).addClass('after').removeClass('active');
+      } else {
+        $(this).removeClass('after').removeClass('active');
+      }
+    });
+    $cache.slides.each(function(i){
+      if(i == currentSlide) {
+        $(this).addClass('active').removeClass('after');
+      } else if(i < currentSlide){
         $(this).addClass('after').removeClass('active');
       } else {
         $(this).removeClass('after').removeClass('active');

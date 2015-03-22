@@ -1,0 +1,184 @@
+@import "guff";
+
+@font-face {
+    font-weight: normal;
+    font-style: normal;
+}
+
+$rem-base: 16px;
+$line-height-base: 1.5;
+$type-rhythm-ratio: 1.14;
+$desktop: "(min-width: 1024px)";
+$tablet: "(min-width: 768px) and (max-width: 1023px)";
+$mobile: "(max-width: 767px)";
+$landscape: "(max-width: 767px) and (orientation : landscape)";
+$grid-columns: 12;
+$grid-gutter: 4;
+$grid-padding: 20px;
+$grid-max-width: 1024px;
+
+$blue: #3498db;
+$dark-blue: #34495e;
+$yellow: #f1c40f;
+$red: #e74c3c;
+$dark-red: #B5292A;
+$teal: #1abc9c;
+$green: #2ecc71;
+$purple: #794DC8;
+$orange: #e67e22;
+$light-gray: #DFDFE3;
+$dark-gray: #444;
+
+@include reset;
+
+@include type;
+
+@include breakpoint($mobile) {
+  @include type(14);
+}
+
+@include breakpoint($landscape){
+  @include type(14);
+  span.scroll-indicator {
+    font-size: 10px !important;
+  }
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  @include prefixer(perspective, 200);
+  background: $light-gray;
+}
+
+body {
+  font-family: 'open_sansbold',san-serif;
+}
+
+main {
+  display: block;
+  height: 100%;
+  @include prefixer(transform-style, preserve-3d);
+}
+
+@include keyframes("pulse") {
+  0% { opacity: 0.25; padding-top: 10px; padding-bottom: 10px;}
+  50% { opacity: 1; padding-top: 0px; padding-bottom: 0px;}
+  100% { opacity: 0.25; padding-top: 10px; padding-bottom: 10px;}
+}
+
+section {
+  &.scene {
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 1em 20px;
+    background-size: 100% 100%;
+    @include breakpoint($desktop) {
+        width: 63.54vh;
+    }
+    @include breakpoint($tablet) {
+        width: 63.54vh;
+    }
+    span.scroll-indicator {
+      @include safe-rem(font-size, 15);
+      position: absolute;
+      bottom: 20px;
+      @include breakpoint($landscape){
+        bottom: 5px;
+      }
+      left: 50%;
+      margin: auto;
+      color: #bbb;
+      display: inline-block;
+      font-weight: normal;
+      @include prefixer(transform, rotateZ(180deg) scaleX(2.5) translate3d(50%,0,0));
+      font-family: Helvetica, Arial, san-serif;
+      @include prefixer(animation, pulse 1.5s infinite);
+      &.reverse {
+        @include prefixer(transform, scaleX(2.5) translate3d(-50%,0,0));
+        top: 20px;
+        @include breakpoint($landscape) {
+          bottom: 5px;
+        }
+        bottom: auto;
+      }
+    }
+  }
+  &.fix {
+    @include prefixer(transform, translate3d(0,0,0));
+  }
+  &.fade {
+    opacity: 0;
+  }
+  &.up_after.after {
+      @include prefixer(transform, translate3d(0,-100%,0));
+  }
+  &.up {
+    @include prefixer(transform, translate3d(0,100%,0));
+  }
+  &.left_after.after {
+      @include prefixer(transform, translate3d(-100%,0,0));
+  }
+  &.left {
+    @include prefixer(transform, translate3d(100%,0,0));
+  }
+  &.cube {
+    @include prefixer(transform, translate3d(0,50%,0) rotateX(-90deg));
+  }
+  &.cube_after.after {
+    @include prefixer(transform, translate3d(0,-50%,0) rotateX(90deg));
+  }
+  &.shrink { 
+    @include prefixer(transform, scale(0));
+  }
+  &.shrink_after.after {
+    @include prefixer(transform, scale(0));
+  }
+  &.roll{
+    @include prefixer(transform, translate3d(100%,0,0) rotateZ(-180deg));
+  }
+  &.roll_after.after {
+    @include prefixer(transform, translate3d(-100%,0,0) rotateZ(180deg));
+  }
+  &.active {
+    @include prefixer(transform, translate3d(0,0,0) scale(1));
+    opacity: 1;
+  }
+  &.slide{
+    position: absolute;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    top: 30%;
+    width: 100%;
+    max-height: 70%;
+    padding: 0 20px;
+  }
+  @include prefixer(transition, all .55s ease-out);
+  @include prefixer(perspective, 1000px);
+  background: white;
+  color: $teal;
+  text-align: center;
+  div.container {
+    position: relative;
+    text-align: center;
+    top: 50%;
+    @include prefixer(transform, translateY(-50%));
+  }
+  h1 {
+    color: $dark-gray;
+    padding: 1em 0;
+  }
+  p {
+    color: $teal;
+    padding: 0.5em;
+  }
+  a{
+    text-decoration: underline;
+    color: $teal;
+  }
+}
