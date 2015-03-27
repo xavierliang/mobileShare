@@ -6,7 +6,7 @@ var app = (function(app, $){
   $cache = {
     scenes: $('.scene'),
     slides: $('.scene').eq(0).find('.slide')
-  }
+  };
 
   function _constructor(){
     _bindEvents();
@@ -94,7 +94,7 @@ var app = (function(app, $){
 
   return _constructor;
 
-})(window.app || {}, jQuery)
+})(window.app || {}, jQuery);
 
 $(document).ready(function(){
   app();
