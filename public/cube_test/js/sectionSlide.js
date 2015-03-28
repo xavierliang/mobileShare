@@ -96,6 +96,11 @@ var app = (function(app, $){
 
 })(window.app || {}, jQuery);
 
-$(document).ready(function(){
+/*
+$((function(){
   app();
 });
+*/
+window.onload = function() {
+  app();
+};
