@@ -22,6 +22,10 @@ var app = (function(app, $){
           fragmentHandle('down');
         } else if(direction == 'down') {
           fragmentHandle('up');
+        } else if(direction == 'left') {
+          fragmentHandle('down');
+        } else if(direction == 'right') {
+          fragmentHandle('up');
         }
       }
     });
@@ -62,14 +66,13 @@ var app = (function(app, $){
 
   function fragmentHandle(direction) {
     for (var i=0;i<timeouts.length;i++){
-      clearTimeout(this);
+      clearTimeout(timeouts[i]);
     }
     timeouts=[];
     switch(direction) {
       case 'up':
         if(currentFragment >= 0) {
-          console.log(currentFragment);
-          currentFragment--;
+          currentFragment = -1;
           sceneHandle();
         } else {
           slideHandle(direction);
