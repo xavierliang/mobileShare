@@ -8,7 +8,7 @@ var app = (function(app, $){
   $cache = {
     scenes: $('.scene'),
     slides: $('.scene').eq(0).find('.slide'),
-    fragments: $('.slide').eq(0).find('.fragment')
+    fragments: $('.scene').eq(0).find('.slide').eq(0).find('.fragment')
   };
 
   function _constructor(){
