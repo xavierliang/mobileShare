@@ -56,7 +56,7 @@ var app = (function(app, $){
     var t = 0;
     for (var i=currentFragment+1; i<$cache.fragments.length; i++){
       var auto = $cache.fragments.eq(i).data('auto');
-      if (auto === 0 || auto===undefined) {
+      if (auto===undefined) {
         break;
       }
       t = t + auto;
