@@ -177,6 +177,8 @@ $((function(){
 });
 */
 window.onload = function() {
+  $(".loader").hide();
+  $(".main").show();
   window.scrollTo(0,0);
   app();
 };
